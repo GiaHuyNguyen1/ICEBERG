@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ICEBERG.MainPage">
+
+    <StackLayout>
+        <ListView x:Name="SlavesListView"
+                  Margin="20"
+                  ItemSelected="OnSlaveSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}"
+                              Detail="{Binding ID}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Start Server"
+                Clicked="StartServerButton_Clicked"/>
+
+        <Button Text="Navigation Observation Slaves"
+                Clicked="NavigationObservationSlaves"/>
+    </StackLayout>
+
+</ContentPage>
