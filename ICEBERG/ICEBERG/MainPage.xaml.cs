@@ -24,7 +24,7 @@ namespace ICEBERG
             SlavesListView.ItemsSource = _slaves;
 
             // Đăng ký sự kiện để cập nhật khi có slave mới
-            Echo.OnNewSlaveReceived += OnNewSlaveReceived;
+            //Echo.OnNewSlaveReceived += OnNewSlaveReceived;
 
             LoadSlaves();
         }
@@ -65,7 +65,8 @@ namespace ICEBERG
 
         private async void NavigationObservationSlaves(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ObservationSlaves());
+            //await Navigation.PushAsync(new ObservationSlaves());
+            await Navigation.PushAsync(new PriceChartPage());
         }
     }
 }

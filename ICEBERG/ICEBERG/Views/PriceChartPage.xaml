@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chartview="clr-namespace:SkiaChart.Views;assembly=SkiaChart"
+             xmlns:chart="clr-namespace:SkiaChart.Charts;assembly=SkiaChart"
+             x:Class="ICEBERG.Views.PriceChartPage">
+
+    <Grid Padding="10">
+        <chartview:ChartCanvas x:TypeArguments="chart:LineChart"
+                               x:Name="chartView"
+                               Chart="{Binding Chart}"
+                               GridLines="10"
+                               GridColor="{Binding GridColor}"
+                               CanShowLegend="True"
+                               LegendItemSpacing="{Binding LegendItemSpacing}"
+                               LabelTextSize="{Binding LabelTextSize}" />
+    </Grid>
+</ContentPage>
