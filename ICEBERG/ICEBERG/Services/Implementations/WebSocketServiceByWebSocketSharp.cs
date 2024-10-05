@@ -12,15 +12,17 @@ namespace ICEBERG.Services
     {
         public string ClientID { get; set; }
         public string Action { get; set; }  // "buy" or "sell"
-        public double Amount { get; set; }  // Số lượng Bitcoin
-        public double Price { get; set; }   // Giá của Bitcoin tại thời điểm giao dịch
+        public float Amount { get; set; }  // Số lượng Bitcoin
+        public float Price { get; set; }   // Giá của Bitcoin tại thời điểm giao dịch
     }
 
     public class Echo : WebSocketBehavior
     {
-        private static double bitcoinPrice = 20000;  // Giá Bitcoin khởi điểm
+        private static float bitcoinPrice = 20000;  // Giá Bitcoin khởi điểm
         private static List<double> priceHistory = new List<double>(); // Lưu lịch sử giá
         private static readonly object lockObj = new object(); // Đảm bảo an toàn khi truy cập đồng thời
+
+        public static Action<float> OnUpdatePrice {  get; set; }
 
         protected override void OnMessage(MessageEventArgs e)
         {
@@ -47,6 +49,8 @@ namespace ICEBERG.Services
 
                     // Gửi giá Bitcoin mới tới tất cả các clients
                     Sessions.Broadcast(responseMessage);
+
+                    OnUpdatePrice?.Invoke(bitcoinPrice); 
 
                     Console.WriteLine($"New Bitcoin price broadcasted: ${bitcoinPrice}");
                 }
@@ -105,6 +109,10 @@ namespace ICEBERG.Services
                 _wssv = new WebSocketServer("ws://192.168.1.13:49152");
                 _wssv.AddWebSocketService<Echo>("/Echo");
                 _wssv.Start();
+
+                Echo.OnUpdatePrice -= OnBitcoinPriceUpdated;
+                Echo.OnUpdatePrice += OnBitcoinPriceUpdated;
+
                 Console.WriteLine("WebSocket server started at ws://192.168.1.13:49152/Echo");
             }
             else

@@ -55,7 +55,7 @@ public class PriceChartViewModel : BindableObject
         _webSocketService.OnBitcoinPriceUpdated += OnBitcoinPriceUpdated;
 
         // Start the WebSocket server (or connect to it)
-        _webSocketService.StartClientConnection();
+        _webSocketService.StartServer();
     }
 
     private void OnBitcoinPriceUpdated(float newPrice)
